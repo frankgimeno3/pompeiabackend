@@ -1,13 +1,13 @@
-import User from '../models/users.model.js';
+import File from '../models/file.model.js';
 
 
-export const getUsers = async (req, res) => {
+export const getFiles = async (req, res) => {
   try {
     // Obtener todos los usuarios de la base de datos
-    const users = await User.find();
+    const files = await File.find();
 
     // Enviar una respuesta al cliente
-    res.status(200).json(users);
+    res.status(200).json(files);
 
   } catch (error) {
     console.error(error);
@@ -15,79 +15,79 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export const getUserById = async (req, res) => {
+export const getFileById = async (req, res) => {
   try {
     const { id } = req.params;
 
     // Buscar un usuario por su ID en la base de datos
-    const user = await User.findById(id);
-    if (!user) {
+    const File = await File.findById(id);
+    if (!File) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
     // Enviar una respuesta al cliente
-    res.status(200).json(user);
+    res.status(200).json(File);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Ha ocurrido un error al obtener el usuario' });
   }
 };
 
-export const createUser = async (req, res) => {
+export const createFile = async (req, res) => {
   try {
     const { usuario, password } = req.body;
 
     // Crear un nuevo usuario en la base de datos
-    const user = new User({ usuario, password });
-    await user.save();
+    const File = new File({ usuario, password });
+    await File.save();
 
     // Enviar una respuesta al cliente
-    res.status(201).json(user);
+    res.status(201).json(File);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Ha ocurrido un error al crear el usuario' });
   }
 };
 
-export const updateUser = async (req, res) => {
+export const updateFile = async (req, res) => {
   try {
     const { id } = req.params;
     const { usuario, password } = req.body;
 
     // Buscar un usuario por su ID en la base de datos
-    const user = await User.findById(id);
-    if (!user) {
+    const File = await File.findById(id);
+    if (!File) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
     // Actualizar el correo electrónico y la contraseña del usuario
-    if (usuario) user.usuario = usuario;
-    if (password) user.password = await bcrypt.hash(password, 10);
-    await user.save();
+    if (usuario) File.usuario = usuario;
+    if (password) File.password = await bcrypt.hash(password, 10);
+    await File.save();
 
     // Enviar una respuesta al cliente
-    res.status(200).json(user);
+    res.status(200).json(File);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Ha ocurrido un error al actualizar el usuario' });
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteFile = async (req, res) => {
   try {
     const { id } = req.params;
 
     // Buscar un usuario por su ID en la base de datos
-    const user = await User.findById(id);
-    if (!user) {
+    const File = await File.findById(id);
+    if (!File) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
     // Eliminar el usuario de la base de datos
-    await user.deleteOne();
+    await File.deleteOne();
 
     // Enviar una respuesta al cliente
-    res.status(200).json(user);
+    res.status(200).json(File);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Ha ocurrido un error al eliminar el usuario' });

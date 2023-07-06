@@ -6,9 +6,9 @@ import cookie from "cookie";
 
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { usuario, password } = req.body;
     console.log(req.body)
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ usuario });
     if (existingUser) {
       return res
         .status(400)
@@ -20,7 +20,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "La contraseña es requerida" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
+    const newUser = new User({ usuario, password: hashedPassword });
 
     await newUser.save();
 
@@ -42,8 +42,8 @@ export const register = async (req, res) => {
 };
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const { usuario, password } = req.body;
+    const user = await User.findOne({ usuario });
     if (!user) {
       return res.status(401).json({ message: "Usuario inválido" });
     }

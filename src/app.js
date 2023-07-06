@@ -2,6 +2,7 @@
 import express from 'express';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
+import fileRoutes from './routes/file.routes.js';
  
 import cors from 'cors';
 import session from 'express-session'
@@ -25,7 +26,8 @@ app.use(express.json());
 // Configurar rutas
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
- 
+app.use('/files', fileRoutes);
+
 app.use(
     session({
       secret: process.env.SESS_SECRET,
