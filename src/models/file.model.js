@@ -1,10 +1,14 @@
 import mongoose from 'mongoose';
 
 const fileSchema = new mongoose.Schema({
-  content: {
+  name: {
     type: String,
     required: true
-  }
+  }, 
+  dios: {
+    type: String,
+    required: true
+  }, 
 },
 {
   timestamps: true
