@@ -35,10 +35,10 @@ export const getFileById = async (req, res) => {
 
 export const createFile = async (req, res) => {
   try {
-    const { name, dios } = req.body;
+    const { nombre, midios } = req.body;
 
     // Crear un nuevo archivo en la base de datos
-    const file = new File({ name, dios });
+    const file = new File({ nombre, midios });
     await file.save();
 
     // Enviar una respuesta al cliente
@@ -52,7 +52,7 @@ export const createFile = async (req, res) => {
 export const updateFile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, dios } = req.body;
+    const { nombre, midios } = req.body;
 
     // Buscar un archivo por su ID en la base de datos
     const file = await File.findById(id);
@@ -60,9 +60,9 @@ export const updateFile = async (req, res) => {
       return res.status(404).json({ message: 'Archivo no encontrado' });
     }
 
-    // Actualizar el nombre y dios del archivo
-    if (name) file.name = name;
-    if (dios) file.dios = dios;
+    // Actualizar el nombre y midios del archivo
+    if (nombre) file.nombre = nombre;
+    if (midios) file.midios = midios;
     await file.save();
 
     // Enviar una respuesta al cliente

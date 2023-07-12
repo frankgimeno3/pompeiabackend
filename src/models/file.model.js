@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const fileSchema = new mongoose.Schema({
-  name: {
+  nombre: {
     type: String,
     required: true
   }, 
-  dios: {
+  midios: {
     type: String,
     required: true
   }, 
