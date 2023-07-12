@@ -35,41 +35,41 @@ export const getFileById = async (req, res) => {
 
 export const createFile = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { name, dios } = req.body;
 
-    // Crear un nuevo file en la base de datos
-    const file = new File({ content });
+    // Crear un nuevo archivo en la base de datos
+    const file = new File({ name, dios });
     await file.save();
 
     // Enviar una respuesta al cliente
-    res.status(201).json(content);
+    res.status(201).json(file);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al crear el file' });
+    res.status(500).json({ message: 'Ha ocurrido un error al crear el archivo' });
   }
 };
 
 export const updateFile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { content } = req.body;
+    const { name, dios } = req.body;
 
-    // Buscar un usuario por su ID en la base de datos
-    const File = await File.findById(id);
-    if (!File) {
-      return res.status(404).json({ message: 'File no encontrado' });
+    // Buscar un archivo por su ID en la base de datos
+    const file = await File.findById(id);
+    if (!file) {
+      return res.status(404).json({ message: 'Archivo no encontrado' });
     }
 
-    // Actualizar el correo electrónico y la contraseña del usuario
-    if (usuario) File.usuario = usuario;
-    if (password) File.password = await bcrypt.hash(password, 10);
-    await File.save();
+    // Actualizar el nombre y dios del archivo
+    if (name) file.name = name;
+    if (dios) file.dios = dios;
+    await file.save();
 
     // Enviar una respuesta al cliente
-    res.status(200).json(File);
+    res.status(200).json(file);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al actualizar el file' });
+    res.status(500).json({ message: 'Ha ocurrido un error al actualizar el archivo' });
   }
 };
 
@@ -77,19 +77,19 @@ export const deleteFile = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Buscar un usuario por su ID en la base de datos
+    // Buscar un archivo por su ID en la base de datos
     const file = await File.findById(id);
     if (!file) {
-      return res.status(404).json({ message: 'File no encontrado' });
+      return res.status(404).json({ message: 'Archivo no encontrado' });
     }
 
-    // Eliminar el usuario de la base de datos
+    // Eliminar el archivo de la base de datos
     await file.deleteOne();
 
     // Enviar una respuesta al cliente
     res.status(200).json(file);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al eliminar el file' });
+    res.status(500).json({ message: 'Ha ocurrido un error al eliminar el archivo' });
   }
 };
