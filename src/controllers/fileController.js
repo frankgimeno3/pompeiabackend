@@ -35,10 +35,10 @@ export const getFileById = async (req, res) => {
 
 export const createFile = async (req, res) => {
   try {
-    const { nombre, midios } = req.body;
+    const { nombre, midios, lang } = req.body;
 
     // Crear un nuevo archivo en la base de datos
-    const file = new File({ nombre, midios });
+    const file = new File({ nombre, midios, lang });
     await file.save();
 
     // Enviar una respuesta al cliente
@@ -63,6 +63,7 @@ export const updateFile = async (req, res) => {
     // Actualizar el nombre y midios del archivo
     if (nombre) file.nombre = nombre;
     if (midios) file.midios = midios;
+    if (lang) file.lang = lang;
     await file.save();
 
     // Enviar una respuesta al cliente

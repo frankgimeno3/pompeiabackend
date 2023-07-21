@@ -1,6 +1,6 @@
 import express from 'express';
 import { getFiles, getFileById, createFile, updateFile, deleteFile } from '../controllers/fileController.js';
-import authenticateToken from '../middlewares/authenticateToken.js';
+// import authenticateToken from '../middlewares/authenticateToken.js';
 
 const router = express.Router();
 
