@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default {
-  // ESTA ES PARA LOCAL!
-  mongoURI: process.env.MONGODB_URI ,
+  mongoURI: process.env.MONGODB_URI,
   
   
   //esto es para el jwt, sino no te deja hacer /auth/login en el back

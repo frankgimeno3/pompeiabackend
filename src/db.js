@@ -2,12 +2,6 @@ import mongoose from 'mongoose';
 import config from './config.js';
 
 const connectDB = async () => {
-  mongoose
-  .connect('mongodb://127.0.0.1:27017/Pompeia')
-  .then(x => console.log(`Connected the Database: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
-
-  
   try {
     // Crear conexión a MongoDB utilizando la URI de configuración
     const connection = await mongoose.connect(config.mongoURI, {
@@ -41,4 +35,4 @@ const connectDB = async () => {
   }
 };
 
-export default connectDB;
+export default connectDB; 
