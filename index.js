@@ -18,7 +18,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import fileRoutes from './routes/file.routes.js';
  
-import cors from 'cors';
+// import cors from 'cors';
 import session from 'cookie-session'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
@@ -28,7 +28,7 @@ import logger from 'morgan'
 
 app.set('trust proxy', 1);
 
-app.use(cors());
+// app.use(cors());
 // Configurar middlewares
 app.use(express.json());
 
