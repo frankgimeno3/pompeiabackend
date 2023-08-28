@@ -43,16 +43,16 @@ app.use('/users', userRoutes);
 app.use('/files', fileRoutes);
 
 app.use(
-    session({
-      secret: process.env.SESS_SECRET,
-      resave: true,
-      saveUninitialized: false,
-      cookie: {
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
-        maxAge: 60000 // 60 * 1000 ms === 1 min
-      }
-    })
-  );
+  session({
+    secret: process.env.SESS_SECRET || 'defaultSecret', // Puedes reemplazar 'defaultSecret' con cualquier valor que desees
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 60000 // 60 * 1000 ms === 1 min
+    }
+  })
+);
 // export default app 
