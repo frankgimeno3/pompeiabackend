@@ -1,6 +1,6 @@
-// src/index.js
+// index.js
 // import app from "./app.js";
-import connectDB from "./src/db.js";
+import connectDB from "./db.js";
 
 const app = express();
  
@@ -14,9 +14,9 @@ app.listen(5000, () => {
 
 // app.js
 import express from 'express';
-import authRoutes from './src/routes/auth.routes.js';
-import userRoutes from './src/routes/user.routes.js';
-import fileRoutes from './src/routes/file.routes.js';
+import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/user.routes.js';
+import fileRoutes from './routes/file.routes.js';
  
 import cors from 'cors';
 import session from 'express-session'

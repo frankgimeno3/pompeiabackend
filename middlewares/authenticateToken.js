@@ -1,4 +1,4 @@
-// src/middlewares/authenticateToken.js
+// middlewares/authenticateToken.js
 import jwt from 'jsonwebtoken'; // Importa el módulo jwt para trabajar con tokens
 import config from '../config.js'; // Importa la configuración del proyecto
 import User from '../models/users.model.js'; // Importa el modelo de usuarios
