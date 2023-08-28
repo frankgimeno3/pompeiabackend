@@ -1,8 +1,9 @@
 // src/index.js
-import app from "./app.js";
+// import app from "./app.js";
 import connectDB from "./db.js";
 
-
+const app = express();
+ 
 // Conectarse a la base de datos de MongoDB
 connectDB();
 
@@ -25,7 +26,6 @@ import logger from 'morgan'
 // app.js ............................................................................................
 
 
-const app = express();
 app.set('trust proxy', 1);
 
 app.use(cors());
