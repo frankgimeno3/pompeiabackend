@@ -31,7 +31,7 @@ export const register = async (req, res) => {
       algorithm: "HS256",
       expiresIn: "6h",
     });
-    res.status(201).json({ authToken: "ok" });
+    res.status(201).json({ authToken: authToken });
 
   } catch (error) {
     console.error(error);
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
       algorithm: "HS256",
       expiresIn: "6h",
     });
-    res.status(200).json({ authToken: "ok" });
+    res.status(200).json({ authToken: authToken });
 
     // res.setHeader('Set-Cookie', [
     //   cookie.serialize('accessToken', authToken, {
