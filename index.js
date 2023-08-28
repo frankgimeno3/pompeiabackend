@@ -1,58 +1,58 @@
-// index.js
-// import app from "./app.js";
-import connectDB from "./db.js";
-
+import express from 'express';
+import connectDB from './db.js';
 const app = express();
- 
-// Conectarse a la base de datos de MongoDB
+
+const PORT = process.env.PORT || 5000;
+
+// Connect to the MongoDB database
 connectDB();
 
-// Iniciar el servidor
-app.listen(5000, () => {
-  console.log("Servidor iniciado en el puerto 5000");
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
-
-// app.js
-import express from 'express';
-import authRoutes from './routes/auth.routes.js';
-import userRoutes from './routes/user.routes.js';
-import fileRoutes from './routes/file.routes.js';
- 
-import cors from 'cors';
-import session from 'express-session'
-import cookieParser from 'cookie-parser'
-import logger from 'morgan'
 
 // app.js ............................................................................................
 
+ import cors from 'cors';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
+// Import your route modules here
+import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/user.routes.js';
+import fileRoutes from './routes/file.routes.js';
+
+ 
 app.set('trust proxy', 1);
 
 app.use(cors());
-// Configurar middlewares
+
+// Configuring middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(logger('dev'));
 
-  app.use(express.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use(logger("dev"));
+// Configuring session
+app.use(
+  session({
+    secret: process.env.SESS_SECRET || 'your-default-secret',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 60000, // 60 * 1000 ms === 1 min
+    },
+  })
+);
 
-
-// Configurar rutas
+// Configuring routes
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/files', fileRoutes);
 
-app.use(
-    session({
-      secret: process.env.SESS_SECRET,
-      resave: true,
-      saveUninitialized: false,
-      cookie: {
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
-        maxAge: 60000 // 60 * 1000 ms === 1 min
-      }
-    })
-  );
-// export default app 
+// export default app;
