@@ -19,7 +19,7 @@ import userRoutes from './routes/user.routes.js';
 import fileRoutes from './routes/file.routes.js';
  
 import cors from 'cors';
-import session from 'express-session'
+import session from 'cookie-session'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 
