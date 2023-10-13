@@ -97,7 +97,7 @@ export const deleteFile = async (req, res) => {
 
 export const deleteFileByTimestamp = async (req, res) => {
   try {
-    const { timestamp } = 1634043371000;
+    const timestamp = 1634043371000;
 
     // Encuentra y elimina todos los archivos con createdAt anterior al timestamp
     const deletedFiles = await File.deleteMany({ createdAt: { $lt: new Date(timestamp) } });
