@@ -94,3 +94,25 @@ export const deleteFile = async (req, res) => {
     res.status(500).json({ message: 'Ha ocurrido un error al eliminar el archivo' });
   }
 };
+
+export const deleteFileByTimestamp = async (req, res) => {
+  try {
+    const { timestamp } = req.params;
+
+    // Buscar un archivo por su marca de tiempo de creación en la base de datos
+    const file = await File.findOne({ createdAt: timestamp });
+    
+    if (!file) {
+      return res.status(404).json({ message: 'Archivo no encontrado' });
+    }
+
+    // Eliminar el archivo de la base de datos
+    await file.deleteOne();
+
+    // Enviar una respuesta al cliente
+    res.status(200).json(file);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Ha ocurrido un error al eliminar el archivo por marca de tiempo' });
+  }
+};
