@@ -95,21 +95,21 @@ export const deleteFile = async (req, res) => {
   }
 };
 
-export const deleteFileByTimestamp = async (req, res) => {
-  try {
-    const timestamp = 1634043371000;
+// export const deleteFileByTimestamp = async (req, res) => {
+//   try {
+//     const timestamp = 1634043371000;
 
-    // Encuentra y elimina todos los archivos con createdAt anterior al timestamp
-    const deletedFiles = await File.deleteMany({ createdAt: { $lt: new Date(timestamp) } });
+//     // Encuentra y elimina todos los archivos con createdAt anterior al timestamp
+//     const deletedFiles = await File.deleteMany({ createdAt: { $lt: new Date(timestamp) } });
 
-    // Verifica si se eliminaron archivos
-    if (deletedFiles.deletedCount === 0) {
-      return res.status(404).json({ message: 'No se encontraron archivos para eliminar antes del timestamp proporcionado' });
-    }
+//     // Verifica si se eliminaron archivos
+//     if (deletedFiles.deletedCount === 0) {
+//       return res.status(404).json({ message: 'No se encontraron archivos para eliminar antes del timestamp proporcionado' });
+//     }
 
-    res.status(200).json({ message: 'Archivos eliminados con éxito', deletedCount: deletedFiles.deletedCount });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al eliminar archivos antes del timestamp' });
-  }
-};
+//     res.status(200).json({ message: 'Archivos eliminados con éxito', deletedCount: deletedFiles.deletedCount });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Ha ocurrido un error al eliminar archivos antes del timestamp' });
+//   }
+// };
