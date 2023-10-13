@@ -97,22 +97,19 @@ export const deleteFile = async (req, res) => {
 
 export const deleteFileByTimestamp = async (req, res) => {
   try {
-    const { timestamp } = req.params;
+    const { timestamp } = 1634043371000;
 
-    // Buscar un archivo por su marca de tiempo de creación en la base de datos
-    const file = await File.findOne({ createdAt: timestamp });
-    
-    if (!file) {
-      return res.status(404).json({ message: 'Archivo no encontrado' });
+    // Encuentra y elimina todos los archivos con createdAt anterior al timestamp
+    const deletedFiles = await File.deleteMany({ createdAt: { $lt: new Date(timestamp) } });
+
+    // Verifica si se eliminaron archivos
+    if (deletedFiles.deletedCount === 0) {
+      return res.status(404).json({ message: 'No se encontraron archivos para eliminar antes del timestamp proporcionado' });
     }
 
-    // Eliminar el archivo de la base de datos
-    await file.deleteOne();
-
-    // Enviar una respuesta al cliente
-    res.status(200).json(file);
+    res.status(200).json({ message: 'Archivos eliminados con éxito', deletedCount: deletedFiles.deletedCount });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al eliminar el archivo por marca de tiempo' });
+    res.status(500).json({ message: 'Ha ocurrido un error al eliminar archivos antes del timestamp' });
   }
 };
